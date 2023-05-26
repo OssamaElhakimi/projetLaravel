@@ -21,7 +21,7 @@
                         <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ajouter Categorie</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Ajouter Exam</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <form action="{{ route('addexam')}}" method="POST">
@@ -32,7 +32,25 @@
                                       <label for="name" class="form-label">nom</label>
                                       <input type="text" class="form-control" id="name" name="name">
                                     </div>
-                                    // ajouter une div selon les champs
+                                    
+                                    <div class="mb-3">
+                                      <label for="modul_id" class="form-label">Moduls</label>
+                                      <select class="form-control"id="modul_id" name="modul_id">
+                                        <option></option>
+                                        @foreach ( $moduls as $modul)
+                                            <option value="{{$modul->id}}">{{ $modul->name }}</option>
+                                        @endforeach
+                                      </select>
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="enseignant_id" class="form-label">Teachers</label>
+                                      <select class="form-control"id="enseignant_id" name="enseignant_id">
+                                        <option></option>
+                                        @foreach ( $enseignants as $enseignant)
+                                            <option value="{{$enseignant->id}}">{{ $enseignant->name }}</option>
+                                        @endforeach
+                                      </select>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -51,23 +69,25 @@
                               <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">nom</th>
-                                <!-- <th scope="col">nom</th> -->
+                                <th scope="col">enseignant</th>
+                                <th scope="col">Modul</th>
                                 <th scope="col">Action</th>
 
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ( $exams as $category)
+                                @foreach ( $exams as $exam)
 
                                 <tr>
-                                  <th scope="row">{{ $category->id }}</th>
-                                  <td>{{ $category->name }}</td>
+                                  <th scope="row">{{ $exam->id }}</th>
+                                  <td>{{ $exam->name }}</td>
+                                  <td>{{ $exam->teacher_id }}</td>
+                                  <td>{{ $exam->modul_id }}</td>
                                   <td>
-                                    <form class="" action="{{ route('deleteexam' , $category->id) }}" method="POST">
+                                    <form class="" action="{{ route('deleteexam' , $exam->id) }}" method="POST">
 
                                         {!! csrf_field() !!}
-                                        {{-- <input type="hidden" class="form-control" value="{{ $partenaire->id }}" id="nompartenaire" name="partenaireId"> --}}
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $category->id }}">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{ $exam->id }}">
                                             modifier
                                         </button>
                                         <input name="_method" type="hidden" value="DELETE">
@@ -80,22 +100,40 @@
                                 </tr>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="editModal{{ $category->id }}"  tabindex="-1" aria-labelledby="exampleModalLabel{{ $category->id }}" aria-hidden="true">
+                                <div class="modal fade" id="editModal{{ $exam->id }}"  tabindex="-1" aria-labelledby="exampleModalLabel{{ $exam->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel{{ $category->id }}">Modifier Categorie</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel{{ $exam->id }}">Modifier Categorie</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form action="{{ route('updateexam',$category->id)}}" method="POST">
+                                        <form action="{{ route('updateexam',$exam->id)}}" method="POST">
 
                                             <div class="modal-body">
                                                 {!! csrf_field() !!}
                                                 <div class="mb-3">
                                                   <label for="name" class="form-label">Name</label>
-                                                  <input type="text" class="form-control" id="name" name="name" value="{{ $category->name }}">
-                                                </div>
+                                                  <input type="text" class="form-control" id="name" name="name" value="{{ $exam->name }}">
+                                                </div><div class="mb-3">
+                                      <label for="modul_id" class="form-label">Moduls</label>
+                                      <select class="form-control"id="modul_id" name="modul_id">
+                                        <option></option>
+                                        @foreach ( $moduls as $modul)
+                                            <option value="{{$modul->id}}">{{ $modul->name }}</option>
+                                        @endforeach
+                                      </select>
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="enseignant_id" class="form-label">Teachers</label>
+                                      <select class="form-control"id="enseignant_id" name="enseignant_id">
+                                        <option></option>
+                                        @foreach ( $enseignants as $enseignant)
+                                            <option value="{{$enseignant->id}}">{{ $enseignant->name }}</option>
+                                        @endforeach
+                                      </select>
+                                    </div>  
                                             </div>
+                                            
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                                                 <button type="submit" class="btn btn-primary">Modifier</button>

@@ -16,7 +16,7 @@ class Exam extends Model
 {
     use HasFactory;
     public function teachers(){
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(User::class);
     }
     public function answers(){
         return $this->hasMany(Answer::class);

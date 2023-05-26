@@ -17,7 +17,7 @@ class ExamsController extends Controller
         $exams = Exam::all();
         $moduls = Modul::all();
         $enseignant = User::where('role', 'enseignant')->get();
-        return view('exam.index', ['exams'=> $exams,'moduls' => $moduls,'enseignant' => $enseignant]);
+        return view('exam.index', ['exams'=> $exams,'moduls' => $moduls,'enseignants' => $enseignant]);
     }
 
     /**

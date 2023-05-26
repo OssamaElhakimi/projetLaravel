@@ -59,3 +59,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
     Route::post('/group/add',[GroupsController::class, 'store'])->name('addgroup');
     Route::post('/group/update/{id}',[GroupsController::class, 'update'])->name('updategroup');
     Route::delete('/group/delete/{id}',[GroupsController::class, 'destroy'])->name('deletegroup');
+    
+    Route::get('/exam/all',[ExamsController::class, 'index'])->name('exam');
+    Route::post('/exam/add',[ExamsController::class, 'store'])->name('addexam');
+    Route::post('/exam/update/{id}',[ExamsController::class, 'update'])->name('updateexam');
+    Route::delete('/exam/delete/{id}',[ExamsController::class, 'destroy'])->name('deleteexam');
